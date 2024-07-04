@@ -1,0 +1,9 @@
+._.DS_Store
+./.DS_Store
+output*
+audit
+data
+envs
+log
+bgenix/
+plink/
