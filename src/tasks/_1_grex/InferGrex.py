@@ -4,7 +4,7 @@ import subprocess
 from multiprocessing import Pool
 
 from src.config.Config import Config
-from src.tasks.grex.convert_to_dosage import ConvertGenotypeProbabilitiesTask
+from src.tasks._1_grex.convert_to_dosage import ConvertGenotypeProbabilitiesTask
 
 
 class RunImputationModelsTask(sl.Task):
@@ -14,14 +14,14 @@ class RunImputationModelsTask(sl.Task):
     group = sl.Parameter()
     model = sl.Parameter()
     basepath = sl.Parameter()
+    done = False
 
     def out_grex(self):
-        # Define the output target for GREx path
         return sl.TargetInfo(self, f'{self.basepath}/inputs_{self.group}/grex_{self.model}')
 
     def requires(self):
-        return ConvertGenotypeProbabilitiesTask()
-
+        return ConvertGenotypeProbabilitiesTask(group=self.group, model=self.model, basepath=self.basepath, workflow_task=self.workflow_task, instance_name='ConvertGenotypeProbabilitiesTask')
+    
     def run(self):
         group = self.group
         model = self.model
@@ -29,16 +29,11 @@ class RunImputationModelsTask(sl.Task):
         genotyp = f'{self.basepath}/inputs_{group}/dosage_{model}/c*.dosage.txt'
         samples = f'{Config.DATA_ROOT}/inputs_{group}/cohort.txt'
 
-        # TODO Can be moved to config
         grex_script = Config.GREX_SCRIPT_PATH
-        models_path = f'{Config.DATA_ROOT}/aux_files/models_{model}/models_by_tissue'
+        short_names = Config.grex_short_names
+        model_names = Config.grex_model_names
+        models_path = Config.MODEL_TISSUE_DATA_PATH.replace('MODEL_NAME', model)
         outgrex = self.out_grex().path
-
-        short_names = ["hippocampus", "amygdala", "caudate", "nucleus-accumbens", "putamen",
-                       "cerebellar-hemisphere", "anterior-cingulate", "dlpfc"]
-        model_names = ["Hippocampus", "Amygdala", "Caudate_basal_ganglia",
-                       "Nucleus_accumbens_basal_ganglia", "Putamen_basal_ganglia",
-                       "Cerebellar_Hemisphere", "Anterior_cingulate_cortex_BA24", "Frontal_Cortex_BA9"]
 
         # Ensure output directory exists
         if not os.path.exists(outgrex):
@@ -55,7 +50,7 @@ class RunImputationModelsTask(sl.Task):
             log_path = os.path.join(log_dir, f'{short_names[idx]}.log')
 
             cmd = [
-                "/home/alxbrd/anaconda3/envs/bg/bin/python", "-u", grex_script,
+                "python", "-u", grex_script,
                 "--model_db_path", model_db_path,
                 "--text_genotypes", genotyp,
                 "--text_sample_ids", samples,
@@ -72,6 +67,15 @@ class RunImputationModelsTask(sl.Task):
             )
             print(result.stdout)
             print(result.stderr)
+
+        self.done = True
+
+    def complete(self):
+        if self.done:
+            return True
+        else:
+            return False
+        
 
 if __name__ == '__main__':
     class Workflow(sl.WorkflowTask):

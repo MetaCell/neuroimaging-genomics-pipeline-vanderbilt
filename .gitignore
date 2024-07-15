@@ -19,3 +19,4 @@ src/__pycache__/
 src/tasks/prep/__pycache__/
 src/tasks/grex/__pycache__/
 src/config/__pycache__/
+src/tasks/__pycache__/

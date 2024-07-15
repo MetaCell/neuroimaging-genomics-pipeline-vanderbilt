@@ -11,9 +11,10 @@ class ExtractSNPsConvertBgenToVcfTask(sl.Task):
     """
     coho = sl.Parameter()
     basepath = sl.Parameter()
+    done = False
 
     def out_vcf(self):
-        # Define the output target for VCF path
+        """Define the output target for VCF path"""
         return sl.TargetInfo(self, f'{self.basepath}/inputs_{self.coho}/vcf_JTI')
 
     def run(self):
@@ -34,7 +35,7 @@ class ExtractSNPsConvertBgenToVcfTask(sl.Task):
         for CHR in range(22, 0, -1):
             chr_str = str(CHR)
             plink_cmd = [
-                Config.PLINK_PATH,
+                "plink2",
                 "--bgen", f"{path_bgn}/c{chr_str}.bgen", "ref-first",
                 "--sample", Config.SAMPLE,
                 "--keep", path_cohort,
@@ -49,8 +50,6 @@ class ExtractSNPsConvertBgenToVcfTask(sl.Task):
             else:
                 subprocess.Popen(plink_cmd, shell=True)
 
-        # Wait for all background processes to finish
-        #subprocess.Popen.wait()
 
         for CHR in range(22, 0, -1):
             chr_str = str(CHR)
@@ -68,6 +67,12 @@ class ExtractSNPsConvertBgenToVcfTask(sl.Task):
             subprocess.run(bgenix_index_cmd, check=True)
             with open(f"{path_vcf}/c{chr_str}.vcf", "w") as vcf_file:
                 subprocess.run(bgenix_vcf_cmd, stdout=vcf_file, check=True)
+
+        self.done = True
+
+    def complete(self):
+        return self.done
+
 
 if __name__ == '__main__':
     class Workflow(sl.WorkflowTask):
