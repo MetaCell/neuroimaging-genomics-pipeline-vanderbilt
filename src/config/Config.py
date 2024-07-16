@@ -3,6 +3,7 @@ import time
 
 
 class Config:
+    # TODO: check if the following works with . as the base path
     PROJECT_BASE_PATH = '/home/dgk/metacell/brain_genomics/VANDERBILT/neuroimaging-genomics-pipeline-vanderbilt'
     
     #General Parameters
@@ -17,17 +18,23 @@ class Config:
     REGENIE_PATH = f'{PROJECT_BASE_PATH}/software/regenie'
 
     # STEP-0 - Prep 
-    SAMPLE = f'{DATA_ROOT}/step_0/0_bgen_JTI/c1.sample' ## all chrom sample files should be the same
-    BGEN_ROOT = f'{DATA_ROOT}/step_0/0_bgen_JTI/'
+    PREP_SAMPLE = f'{DATA_ROOT}/step_0/inputs_GROUP_NAME/bgen_JTI/c1.sample' ## all chrom sample files should be the same
+    PATH_JTI = f'{DATA_ROOT}/step_0/aux_files/snps_keep.txt'
+    PATH_COHORT = f'{DATA_ROOT}/step_0/inputs_GROUP_NAME/cohort.txt'
+    PATH_BGEN = f'{DATA_ROOT}/step_0/inputs_GROUP_NAME/bgen_JTI'
 
 
     # STEP-1 - GREX stage-1
     GROUP = 'HCP'
     MODEL = 'JTI'
+    VCF_PATH = f'{DATA_ROOT}/step_1/inputs_GROUP_NAME/vcf_MODEL_NAME'
+
 
     #STEP-1 - GREX stage-2
+    GREX_GENOTYPE_DOSAGE_FORMAT = 'c*.dosage.txt'
+    SAMPLE_COHORT_PATH = f'{DATA_ROOT}/step_1/inputs_GROUP_NAME/cohort.txt'
     GREX_SCRIPT_PATH = f'{PROJECT_BASE_PATH}/software/MetaXcan/software/Predict.py'
-    MODEL_TISSUE_DATA_PATH = f'{DATA_ROOT}/aux_files/models_MODEL_NAME/models_by_tissue'  ## do not edit MODEL_NAME - it will be replaced by the model name in the code
+    MODEL_TISSUE_DATA_PATH = f'{DATA_ROOT}/step_1/aux_files/models_MODEL_NAME/models_by_tissue'  ## do not edit MODEL_NAME - it will be replaced by the model name in the code
     
     # ensure the files inside the models_by_tissue consist of the following files
     grex_short_names = ["hippocampus", "amygdala", "caudate", "nucleus-accumbens", "putamen",
@@ -37,9 +44,28 @@ class Config:
                     "Cerebellar_Hemisphere", "Anterior_cingulate_cortex_BA24", "Frontal_Cortex_BA9"]
 
 
+    OUTPUT_HDF5_TO_STEP_2_INPUT = f'{DATA_ROOT}/step_2/inputs_GROUP_NAME/'
 
     # STEP-2 - TWAS - stage-1
-    COHORT = ''
+    COHORT = 'UKB'   ## UKB/twas_JTI/vol_mean
+    TWAS_WHICH = 'same'
+    TWAS_PHENS = 'connmean_noGS_mean'
+    BRAIN_NAMES = grex_short_names
+    COVS = ['age', 'isMale']
+
+
+    # STEP-3 GWAS 
+
+
+
+    # STEP-4 WEBG
+
+
+
+    # STEP-5 - POLY
+
+
+
 
     @staticmethod
     def create_output_timestamp_dir():

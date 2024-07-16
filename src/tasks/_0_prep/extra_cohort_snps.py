@@ -19,10 +19,10 @@ class ExtractSNPsConvertBgenToVcfTask(sl.Task):
 
     def run(self):
         coho = self.coho
-        #TODO Refactor and try to move to config
-        path_jti = os.path.join(Config.DATA_ROOT, 'aux_files/snps_keep.txt')
-        path_bgn = os.path.join(Config.DATA_ROOT, f'inputs_{coho}/bgen_JTI')
-        path_cohort = os.path.join(Config.DATA_ROOT, f'inputs_{coho}/cohort.txt')
+        path_bgn = Config.PATH_BGEN.replace('GROUP_NAME', coho)
+        path_jti = Config.PATH_JTI
+        path_cohort = Config.PATH_COHORT.replace('GROUP_NAME', coho)
+        prep_sample = Config.PREP_SAMPLE.replace('GROUP_NAME', coho)
         path_vcf = self.out_vcf().path
 
         # Ensure output directories exist
@@ -37,7 +37,7 @@ class ExtractSNPsConvertBgenToVcfTask(sl.Task):
             plink_cmd = [
                 "plink2",
                 "--bgen", f"{path_bgn}/c{chr_str}.bgen", "ref-first",
-                "--sample", Config.SAMPLE,
+                "--sample", prep_sample,
                 "--keep", path_cohort,
                 "--extract", path_jti,
                 "--export", "bgen-1.2",

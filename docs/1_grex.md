@@ -4,7 +4,7 @@
 #### 1.1. Convert to dosage. 
 `INPUT` - We need vcf files in the folder form of the following structure:
 ```
-data/inputs_{GROUP_NAME}/vcf_{MODEL_NAME}
+data/step_1/inputs_{GROUP_NAME}/vcf_{MODEL_NAME}
 ```
 
 
@@ -73,6 +73,12 @@ output/input_{GROUP_NAME}/grex_{MODEL_NAME}/logs
 
 ## How to run GREX pipeline
 
-TODO
+1. To execute convert_to_dosage, run the following command:
+```bash
+python -m src.tasks._1_grex.convert_to_dosage --group HCP --model JTI --basepath ./output
+```
 
-
+2. To execute infer_grex, run the following command:
+```bash
+python -m src.tasks._1_grex.infer_grex --group HCP --model JTI --basepath ./output
+```

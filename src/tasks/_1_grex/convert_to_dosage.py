@@ -5,6 +5,8 @@ from multiprocessing import Pool
 import numpy as np
 
 from src.config.Config import Config
+from src.utils.filesystem import create_path_if_not_exists
+
 
 class ConvertGenotypeProbabilitiesTask(sl.Task):
     """
@@ -47,7 +49,7 @@ class ConvertGenotypeProbabilitiesTask(sl.Task):
                 if i < header[group.split('/')[0]]:
                     continue
 
-                    # Versioning
+                # Versioning
                 if i < start:
                     continue
                 if i == end:
@@ -88,19 +90,15 @@ class ConvertGenotypeProbabilitiesTask(sl.Task):
         print(f'done converting chr {chrom}.{version}')
 
     def run(self):
-        vcf_path = f'{Config.DATA_ROOT}/inputs_{self.group}/vcf_{self.model}'
+        vcf_path = Config.VCF_PATH.replace('GROUP_NAME', self.group).replace('MODEL_NAME', self.model)
         dos_path = str(self.out_dosage().path)
         group = str(self.group)
 
         print(os.getcwd())
-        # Ensure output directory exists
-        if not os.path.exists(dos_path):
-            try:
-                os.makedirs(dos_path)
-            except:
-                raise OSError("Can't create destination directory (%s)!" % (dos_path))
 
-                # Function to read VCF file and convert to dosage
+        create_path_if_not_exists(dos_path)
+        
+        ## Function to read VCF file and convert to dosage
 
         # Prepare data for multiprocessing
         chr_ver = []
