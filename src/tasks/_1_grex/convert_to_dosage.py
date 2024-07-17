@@ -20,7 +20,10 @@ class ConvertGenotypeProbabilitiesTask(sl.Task):
 
     def out_dosage(self):
         # Define the output target
-        return sl.TargetInfo(self, f'{self.basepath}/inputs_{self.group}/dosage_{self.model}')
+        return sl.TargetInfo(
+            self, f'{self.basepath}/{Config.GREX_DOSAGE_CONVERT_OUTPUT}' \
+                .replace('GROUP_NAME', self.group).replace('MODEL_NAME', self.model)
+        )
 
     @staticmethod
     def convert2dosage(data):

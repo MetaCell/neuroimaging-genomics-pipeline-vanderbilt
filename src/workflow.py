@@ -1,7 +1,7 @@
 import sciluigi as sl
 
 from src.config.Config import Config
-from src.tasks._1_grex.InferGrex import RunImputationModelsTask
+from src.tasks._1_grex.infer_grex import RunImputationModelsTask
 from src.tasks._1_grex.convert_to_dosage import ConvertGenotypeProbabilitiesTask
 
 
@@ -12,6 +12,7 @@ class Workflow(sl.WorkflowTask):
     def workflow(self):
         run_instance = self.workflow_instance
 
+        # STEP-1
         convert_task = self.new_task('convert_genotype_probabilities', ConvertGenotypeProbabilitiesTask,
                                      group=Config.GROUP, model=Config.MODEL, basepath=run_instance)
 

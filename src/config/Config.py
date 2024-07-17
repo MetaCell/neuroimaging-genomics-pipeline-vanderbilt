@@ -22,19 +22,24 @@ class Config:
     PATH_JTI = f'{DATA_ROOT}/step_0/aux_files/snps_keep.txt'
     PATH_COHORT = f'{DATA_ROOT}/step_0/inputs_GROUP_NAME/cohort.txt'
     PATH_BGEN = f'{DATA_ROOT}/step_0/inputs_GROUP_NAME/bgen_JTI'
+    OUTPUT_VCF_JTI = f'step_0/inputs_COHO/vcf_JTI'
 
 
     # STEP-1 - GREX stage-1
     GROUP = 'HCP'
     MODEL = 'JTI'
     VCF_PATH = f'{DATA_ROOT}/step_1/inputs_GROUP_NAME/vcf_MODEL_NAME'
+    GREX_DOSAGE_CONVERT_OUTPUT = f'step_1/inputs_GROUP_NAME/dosage_MODEL_NAME'
+    GREX_INFER_OUTPUT = f'step_1/inputs_GROUP_NAME/grex_MODEL_NAME'
 
+    # ----------------------------------------------------------------- 
 
     #STEP-1 - GREX stage-2
     GREX_GENOTYPE_DOSAGE_FORMAT = 'c*.dosage.txt'
     SAMPLE_COHORT_PATH = f'{DATA_ROOT}/step_1/inputs_GROUP_NAME/cohort.txt'
     GREX_SCRIPT_PATH = f'{PROJECT_BASE_PATH}/software/MetaXcan/software/Predict.py'
     MODEL_TISSUE_DATA_PATH = f'{DATA_ROOT}/step_1/aux_files/models_MODEL_NAME/models_by_tissue'  ## do not edit MODEL_NAME - it will be replaced by the model name in the code
+    GENOTYPE_INPUT = f'step_1/inputs_GROUP_NAME/dosage_MODEL_NAME/{GREX_GENOTYPE_DOSAGE_FORMAT}'
     
     # ensure the files inside the models_by_tissue consist of the following files
     grex_short_names = ["hippocampus", "amygdala", "caudate", "nucleus-accumbens", "putamen",

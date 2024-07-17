@@ -2,15 +2,20 @@
 <hr />
 
 #### 1.1. Convert to dosage. 
-`INPUT` - We need vcf files in the folder form of the following structure:
+`INPUT` - The input is taken from the output of the 0 step. The vcf files are in the folder in the following structure:
+```bash
+output/step_0/inputs_{GROUP_NAME}/vcf_{MODEL_NAME}/*
 ```
-data/step_1/inputs_{GROUP_NAME}/vcf_{MODEL_NAME}
+
+for GROUP_NAME=UKB and MODEL_NAME=JTI, it should be in 
+```bash
+output/step_0/inputs_UKB/vcf_JTI/*
 ```
 
 
 `OUTPUT` - this will create output in the `output` folder as:
-```
-output/input_{GROUP_NAME}/dosage_{MODEL_NAME}
+```bash
+output/step_1/input_{GROUP_NAME}/dosage_{MODEL_NAME}
 ```
 where `GROUP_NAME` is the group name and `MODEL_NAME` is the model name. If we set `HCP` as the group name and `JTI` as the model name, the input folder should be named as `inputs_HCP/vcf_JTI`. And the output folder will be named as `output/input_HCP/dosage_JTI`.
 
@@ -34,7 +39,7 @@ data/aux_files/models_{MODEL_NAME}/models_by_tissue/{MODEL_NAME}_Brain_{grex_mod
 b. (optional) `--text_genotypes`
 this is generated from the previous step - `1.1. Convert to dosage` and can be found in the following structure:
 ```
-output/input_{GROUP_NAME}/dosage_{MODEL_NAME}
+output/step_0/input_{GROUP_NAME}/dosage_{MODEL_NAME}
 ```
 
 so for GROUP_NAME = HCP and MODEL_NAME = JTI, the path should be:
@@ -55,6 +60,8 @@ so for GROUP_NAME = HCP, the path should be:
 data/input_HCP/cohort.txt
 ```
 
+
+`OUTPUT`
 The following output will be generated as hdf5 files in the `output` folder:
 
 `--prediction_output`

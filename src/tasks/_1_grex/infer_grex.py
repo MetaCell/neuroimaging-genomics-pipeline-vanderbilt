@@ -17,7 +17,8 @@ class RunImputationModelsTask(sl.Task):
     done = False
 
     def out_grex(self):
-        return sl.TargetInfo(self, f'{self.basepath}/inputs_{self.group}/grex_{self.model}')
+        return sl.TargetInfo(self, f'{self.basepath}/{Config.GREX_INFER_OUTPUT}' \
+                             .replace('GROUP_NAME', self.group).replace('MODEL_NAME', self.model))
 
     def requires(self):
         return ConvertGenotypeProbabilitiesTask(group=self.group, model=self.model, basepath=self.basepath, workflow_task=self.workflow_task, instance_name='ConvertGenotypeProbabilitiesTask')
@@ -26,7 +27,7 @@ class RunImputationModelsTask(sl.Task):
         group = self.group
         model = self.model
 
-        genotyp = f'{self.basepath}/inputs_{group}/dosage_{model}/{Config.GREX_GENOTYPE_DOSAGE_FORMAT}'
+        genotyp = f'{self.basepath}/{Config.GENOTYPE_INPUT}'.replace('GROUP_NAME', group).replace('MODEL_NAME', model)
         samples = f'{Config.SAMPLE_COHORT_PATH}'.replace('GROUP_NAME', group)
 
         grex_script = Config.GREX_SCRIPT_PATH
@@ -68,26 +69,6 @@ class RunImputationModelsTask(sl.Task):
 
             print(result.stdout)
             print(result.stderr)
-
-
-            # Copy the output files to input of the next step
-            hdf5_files = [f for f in os.listdir(outgrex) if f.endswith('.hdf5')]
-            output_hdf5 = Config.OUTPUT_HDF5_TO_STEP_2_INPUT.replace('GROUP_NAME', group).replace('MODEL_NAME', model)
-            
-            # if input_{group} in step-2 folder does not exist, create it
-            if not os.path.exists(output_hdf5):
-                os.makedirs(output_hdf5)
-            
-            cmd_cp_pste = [
-                "cp",
-                "-r",
-                outgrex,
-                output_hdf5
-            ]
-            
-            cp_paste_res = subprocess.run(cmd_cp_pste, check=True)
-            print(cp_paste_res.stdout)
-            print(cp_paste_res.stderr)
 
 
         self.done = True

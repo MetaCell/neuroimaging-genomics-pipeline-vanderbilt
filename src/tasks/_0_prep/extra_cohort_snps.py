@@ -15,7 +15,7 @@ class ExtractSNPsConvertBgenToVcfTask(sl.Task):
 
     def out_vcf(self):
         """Define the output target for VCF path"""
-        return sl.TargetInfo(self, f'{self.basepath}/inputs_{self.coho}/vcf_JTI')
+        return sl.TargetInfo(self, f'{self.basepath}/{Config.OUTPUT_VCF_JTI}'.replace('COHO', self.coho))
 
     def run(self):
         coho = self.coho
