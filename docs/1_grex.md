@@ -15,7 +15,7 @@ output/step_0/inputs_UKB/vcf_JTI/*
 
 `OUTPUT` - this will create output in the `output` folder as:
 ```bash
-output/step_1/input_{GROUP_NAME}/dosage_{MODEL_NAME}
+output/step_1/inputs_{GROUP_NAME}/dosage_{MODEL_NAME}
 ```
 where `GROUP_NAME` is the group name and `MODEL_NAME` is the model name. If we set `HCP` as the group name and `JTI` as the model name, the input folder should be named as `inputs_HCP/vcf_JTI`. And the output folder will be named as `output/input_HCP/dosage_JTI`.
 
@@ -82,10 +82,10 @@ output/input_{GROUP_NAME}/grex_{MODEL_NAME}/logs
 
 1. To execute convert_to_dosage, run the following command:
 ```bash
-python -m src.tasks._1_grex.convert_to_dosage --group HCP --model JTI --basepath ./output
+python -m src.tasks._1_grex.convert_to_dosage --group UKB --model JTI --basepath ./output
 ```
 
 2. To execute infer_grex, run the following command:
 ```bash
-python -m src.tasks._1_grex.infer_grex --group HCP --model JTI --basepath ./output
+python -m src.tasks._1_grex.infer_grex --group UKB --model JTI --basepath ./output
 ```
