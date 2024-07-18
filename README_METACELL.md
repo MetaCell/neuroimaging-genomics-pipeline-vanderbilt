@@ -48,10 +48,6 @@ python -m src.workflow
 ```
 
 
-To run a single task:
-```bash
-### TODO
-```
 
 
 To execute a single tasks: (example for GREX - convert to dosage)

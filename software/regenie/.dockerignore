@@ -1,0 +1,17 @@
+# File .dockerignore
+.git
+.gitignore
+.github
+
+# directories to ignore
+example/
+test/
+recipe/
+# in source code
+src/*.o
+external_libs/pgenlib/*.o
+external_libs/pgenlib/include/*.o
+
+# Files
+README.md
+LICENSE
