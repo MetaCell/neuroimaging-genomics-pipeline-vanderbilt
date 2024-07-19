@@ -4,8 +4,6 @@
 library(WebGestaltR) ## downloaded version: 0.4.6		
 args <- commandArgs(trailingOnly = TRUE)
 
-args <- commandArgs(trailingOnly=TRUE)
-
 gmtPath <- args[1]
 desPath <- args[2]
 jtiPath <- args[3]

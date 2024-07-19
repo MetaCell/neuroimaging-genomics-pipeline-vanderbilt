@@ -45,7 +45,7 @@ class RunWebGestaltTask(sl.Task):
 
 		gmtPath = f'{out_path_webgestalt}/{Config.GMT_PATH}'.replace('ONTOL', self.ontol)
 		desPath = f'{out_path_webgestalt}/{Config.DES_PATH}'.replace('ONTOL', self.ontol)
-		jtiPath = f'{Config.WEBG_JTI_PATH}/'
+		jtiPath = f'{Config.WEBG_JTI_PATH}'
 		innPath = f'{out_path_webgestalt}/{Config.WEBG_INN_PATH}'.replace('GROUP_NAME', self.group) \
 			.replace('PTYPE', self.ptype).replace('PHENS', self.phens)
 		
@@ -54,18 +54,12 @@ class RunWebGestaltTask(sl.Task):
 		
 		create_path_if_not_exists(outPath)
 		run_webgestalt_path = Config.RUN_WEBGESTALT_PATH
-		regs_parameter = ','.join(regs)
 		result = subprocess.run([
-			"Rscript", run_webgestalt_path, gmtPath, desPath, jtiPath, innPath, outPath, phens, regs_parameter
-		],
-			capture_output=True,
-            text=True,
-            check=True
-            )
+			"Rscript", run_webgestalt_path, gmtPath, desPath, jtiPath, innPath, outPath, phens
+		] + regs, capture_output=True, text=True,check=True )
 
-		print(result.stdout)
+		print(result.stdout)		
 		print(result.stderr)
-				
 		self.done = True
 
 	
