@@ -40,18 +40,31 @@ DATA requirements -
 
 # Running the pipeline
 
-#### Configure the project base path for your machine in the [config.py](src/config/Config.py) file's `PROJECT_BASE_PATH` variable.
+### Configuration
 
-TO run the entire workflow:
+Configure the project base path for your machine in the [config.py](src/config/Config.py) file's `PROJECT_BASE_PATH` variable and other
+parameters, as required.
+
+To run the entire workflow using Sciluigi:
 ```bash
 python -m src.workflow
 ```
+
+To run the entire workflow using Docker and individual workflow tasks:
+Build the docker container:
+```
+chmod +x docker-build.sh
+./docker-build.sh
+```
+This opens a bash shell from inside the container:
+```
+chmod +x run-workflow-tasks.sh
+./run-workflow-tasks.sh
+```
+
+Using this approach to execute the workflows, a new folder with a timestamp to the current run will be created in the output folder.
 
 To execute a single tasks: (example for GREX - convert to dosage)
 ```bash
 python -m src.tasks._1_grex.convert_to_dosage --group HCP --model JTI --basepath ./output
 ```
-
-To build and run the con
-
-
