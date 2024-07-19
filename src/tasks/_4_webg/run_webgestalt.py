@@ -45,13 +45,14 @@ class RunWebGestaltTask(sl.Task):
 
 		gmtPath = f'{out_path_webgestalt}/{Config.GMT_PATH}'.replace('ONTOL', self.ontol)
 		desPath = f'{out_path_webgestalt}/{Config.DES_PATH}'.replace('ONTOL', self.ontol)
-		jtiPath = f'{Config.WEBG_JTI_PATH}'
+		jtiPath = f'{Config.WEBG_JTI_PATH}/'
 		innPath = f'{out_path_webgestalt}/{Config.WEBG_INN_PATH}'.replace('GROUP_NAME', self.group) \
 			.replace('PTYPE', self.ptype).replace('PHENS', self.phens)
 		
 		outPath = f'{out_path_webgestalt}/{Config.WEBG_OUT_PATH}'.replace('GROUP_NAME', self.group) \
 			.replace('PTYPE', self.ptype).replace('PHENS', self.phens).replace('ONTOL', self.ontol)
 		
+		create_path_if_not_exists(outPath)
 		run_webgestalt_path = Config.RUN_WEBGESTALT_PATH
 		regs_parameter = ','.join(regs)
 		result = subprocess.run([

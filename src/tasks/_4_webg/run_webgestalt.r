@@ -2,6 +2,7 @@
 # install.packages('WebGestaltR')
 #install.packages("WebGestaltR", dependencies=TRUE, verbose=TRUE)
 library(WebGestaltR) ## downloaded version: 0.4.6		
+args <- commandArgs(trailingOnly = TRUE)
 
 args <- commandArgs(trailingOnly=TRUE)
 
