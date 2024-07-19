@@ -35,7 +35,7 @@ class ExtractSNPsConvertBgenToVcfTask(sl.Task):
         for CHR in range(22, 0, -1):
             chr_str = str(CHR)
             plink_cmd = [
-                "plink2",
+                Config.PLINK_PATH,
                 "--bgen", f"{path_bgn}/c{chr_str}.bgen", "ref-first",
                 "--sample", prep_sample,
                 "--keep", path_cohort,
@@ -56,7 +56,9 @@ class ExtractSNPsConvertBgenToVcfTask(sl.Task):
             bgenix_index_cmd = [
                 Config.BGENIX_PATH,
                 "-g", f"{path_bgn}/c{chr_str}.bgen",
-                "-index"
+                "-index",
+                "-clobber"
+                # TODO: -clobber: Specify that bgenix should overwrite existing index file if it exists.
             ]
             bgenix_vcf_cmd = [
                 Config.BGENIX_PATH,

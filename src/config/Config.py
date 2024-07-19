@@ -4,7 +4,7 @@ import time
 
 class Config:
     # TODO: check if the following works with . as the base path
-    PROJECT_BASE_PATH = '/home/dgk/metacell/brain_genomics/VANDERBILT/neuroimaging-genomics-pipeline-vanderbilt'
+    PROJECT_BASE_PATH = '/home/alxbrd/projects/metacell/vanderbilt/brain_genomics_metacell'
     
     #General Parameters
     OUTPUT_BASEPATH = f'{PROJECT_BASE_PATH}/output/'
@@ -149,7 +149,7 @@ class Config:
     # run webgestalt
     GMT_PATH = f'step_4/aux_files/ONTOL.gmt'
     DES_PATH =  f'step_4/aux_files/ONTOL.des'
-    WEBG_JTI_PATH = f'{DATA_ROOT}/step_4/aux_files/models_JTI/genes_by_tissue'
+    WEBG_JTI_PATH = f'{DATA_ROOT}/step_4/aux_files/models_JTI/genes_by_tissue/'
 
     WEBG_INN_PATH = f'step_4/inputs_GROUP_NAME/enrich_sets/PTYPE_PHENS_'
     WEBG_OUT_PATH = f'step_4/outputs_GROUP_NAME/enrich_ONTOL/PTYPE_PHENS'

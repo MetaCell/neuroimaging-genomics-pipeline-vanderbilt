@@ -18,14 +18,14 @@ class GetQCStatsTask(sl.Task):
 		pass
 
 	def save_new_chr_files(self, chr_num, qc_outs_path):
-		bgen_raw = f'{Config.BGEN_RAW_PATH}/c{chr_num}.bgen ref-first'.replace('GROUP_NAME', self.group)
+		bgen_raw = f'{Config.BGEN_RAW_PATH}/c{chr_num}.bgen'.replace('GROUP_NAME', self.group)
 		sample_path = f'{Config.BGEN_RAW_PATH}/c{chr_num}.sample'.replace('GROUP_NAME', self.group)
 
 		hard_call_threshold = '0.1'
 		qc_out_path = f'{self.out_get_qc_stats().path}'
 		out_path = f'{qc_out_path}/c{chr_num}'
 		cmd = [
-			'plink2', '--bgen', bgen_raw, '--sample', sample_path, 
+			Config.PLINK_PATH, '--bgen', bgen_raw, 'ref-first', '--sample', sample_path,
 			'--snps-only', '--hard-call-threshold', hard_call_threshold, 
 			'--make-pgen', '--out', out_path
 		]
@@ -34,19 +34,20 @@ class GetQCStatsTask(sl.Task):
 			cmd,
 			capture_output=True,
 			text=True,
-			check=True
+			check=False
 		)
 		print(result.stdout)
 		print(result.stderr)
 
 	def apply_filters_for_missingness(self, chr_num, qc_out_path):
-		pfile_path = f'{Config.BGEN_RAW_PATH}/c{chr_num}'.replace('GROUP_NAME', self.group)
-		geno = 0.05
-		maf = 0.01
+		qc_out_path = f'{self.out_get_qc_stats().path}'
+		pfile_path = f'{qc_out_path}/c{chr_num}'
+		geno = str(0.05)
+		maf = str(0.01)
 		out_path = f'{qc_out_path}/c{chr_num}'
 
 		cmd = [
-			'plink2', '--pfile', pfile_path, '--geno', geno, 
+			Config.PLINK_PATH, '--pfile', pfile_path, '--geno', geno,
 			'--maf', maf, '--make-pgen', '--out', out_path
 		]
 
@@ -61,13 +62,14 @@ class GetQCStatsTask(sl.Task):
 
 
 	def remove_duplicate_snps(self, chr_num, qc_outs_path):
-		pfile_path = f'{Config.BGEN_RAW_PATH}/c{chr_num}'.replace('GROUP_NAME', self.group)
-		hwe = 0.00001
+		qc_out_path = f'{self.out_get_qc_stats().path}'
+		pfile_path = f'{qc_out_path}/c{chr_num}'
+		hwe = str(0.00001)
 		qc_out_path = f'{self.out_get_qc_stats().path}'
 		out_path = f'{qc_out_path}/c{chr_num}'
 
 		cmd = [
-			'plink2', '--pfile', pfile_path, '--rm-dup', 'exclude-mismatch',
+			Config.PLINK_PATH, '--pfile', pfile_path, '--rm-dup', 'exclude-mismatch',
 			'--hwe', hwe, '--export', 'bgen-1.2', 'bits=8', '--out', out_path
 		]
 
@@ -83,11 +85,10 @@ class GetQCStatsTask(sl.Task):
 
 	def index_bgen_files(self, chr_num, qc_outs_path):
 		bgen_file_path = f'{Config.BGEN_RAW_PATH}/c{chr_num}.bgen'.replace('GROUP_NAME', self.group)
-		bgen_path = f'{Config.BGENIX_PATH}/bgenix'
 
 		cmd = [
-			bgen_path, '-g', bgen_file_path, '-index'
-			'-clobber &' 
+			Config.BGENIX_PATH, '-g', bgen_file_path, '-index',
+			'-clobber'
 		]
 
 		result = subprocess.run(

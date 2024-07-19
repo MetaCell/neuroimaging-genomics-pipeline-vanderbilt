@@ -4,6 +4,14 @@
 
 #### 4.1. Save Predixvu GMT
 
+System packages:
+
+libfontconfig1-dev
+libssl-dev
+libcurl-dev
+
+sudo apt install build-essential libcurl4-gnutls-dev libxml2-dev libssl-dev
+
 We need the  files in the following structure:
 
 `INPUT`

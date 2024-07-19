@@ -53,10 +53,17 @@ class RunWebGestaltTask(sl.Task):
 			.replace('PTYPE', self.ptype).replace('PHENS', self.phens).replace('ONTOL', self.ontol)
 		
 		run_webgestalt_path = Config.RUN_WEBGESTALT_PATH
+		regs_parameter = ','.join(regs)
+		result = subprocess.run([
+			"Rscript", run_webgestalt_path, gmtPath, desPath, jtiPath, innPath, outPath, phens, regs_parameter
+		],
+			capture_output=True,
+            text=True,
+            check=True
+            )
 
-		subprocess.call([
-			"Rscript", run_webgestalt_path, gmtPath, desPath, jtiPath, innPath, outPath, phens
-		] + regs)
+		print(result.stdout)
+		print(result.stderr)
 				
 		self.done = True
 
