@@ -4,7 +4,7 @@ import time
 
 class Config:
     # TODO: check if the following works with . as the base path
-    PROJECT_BASE_PATH = '/home/alxbrd/projects/metacell/vanderbilt/brain_genomics_metacell'
+    PROJECT_BASE_PATH = os.getenv('BASE_PATH', './')
     
     #General Parameters
     OUTPUT_BASEPATH = f'{PROJECT_BASE_PATH}/output/'
@@ -12,8 +12,9 @@ class Config:
     DATA_ROOT = f'{PROJECT_BASE_PATH}/data'
 
     # Software Paths
-    PLINK_PATH = f'{PROJECT_BASE_PATH}/software/plink2'          ## if you want to provide a specific path to plink, provide it here
-    BGENIX_PATH = f'{PROJECT_BASE_PATH}/software/bgenix/bgenix'
+    PLINK_PATH = os.getenv('PLINK_PATH', f'{PROJECT_BASE_PATH}/software/plink2')          ## if you want to provide a specific path to plink, provide it here
+    BGENIX_PATH = os.getenv('BGENIX_PATH', f'{PROJECT_BASE_PATH}/software/bgenix/bgenix')
+
     METAXCAN_PATH = f'{PROJECT_BASE_PATH}/software/MetaXcan'
     REGENIE_PATH = f'{PROJECT_BASE_PATH}/software/regenie/regenie'
 

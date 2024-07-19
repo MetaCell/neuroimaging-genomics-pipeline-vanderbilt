@@ -75,9 +75,6 @@ output/input_{GROUP_NAME}/grex_{MODEL_NAME}/logs
 ```
 
 
-
-
-
 ## How to run GREX pipeline
 
 1. To execute convert_to_dosage, run the following command:

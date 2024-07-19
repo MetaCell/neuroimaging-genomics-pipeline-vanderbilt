@@ -31,13 +31,7 @@ class Workflow(sl.WorkflowTask):
         concat_twas = self.new_task('concat_twas', ConcatTwasTask, group=Config.GROUP, phens=Config.CONCAT_TWAS_PHENS, basepath=run_instance)
         count_pdx_overlap = self.new_task('count_pdx_overlap', CountPDXOverlapTask, ptype=Config.PTYPE, group=Config.GROUP, basepath=run_instance)
 
-        # define what is required to run each task
-
-
         # STEP-3
-        
-
-
 
         # Return the last task(s) in the workflow chain.
         return count_pdx_overlap

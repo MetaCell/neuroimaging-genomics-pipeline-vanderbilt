@@ -47,13 +47,11 @@ TO run the entire workflow:
 python -m src.workflow
 ```
 
-
-
-
 To execute a single tasks: (example for GREX - convert to dosage)
 ```bash
 python -m src.tasks._1_grex.convert_to_dosage --group HCP --model JTI --basepath ./output
 ```
 
+To build and run the con
 
 

@@ -1,6 +1,5 @@
 appdirs==1.4.4
 cachetools==5.3.3
-cbgen==1.0.6
 certifi==2024.6.2
 cffi==1.16.0
 charset-normalizer==3.3.2
@@ -16,7 +15,6 @@ importlib_metadata==8.0.0
 iniconfig==2.0.0
 joblib==1.4.2
 locket==1.0.0
-numpy
 packaging==24.1
 pandas
 partd==1.4.2
@@ -45,3 +43,6 @@ tzdata==2024.1
 urllib3==2.2.2
 xarray==2024.6.0
 zipp==3.19.2
+numpy==1.23.5
+sciluigi
+pandas
