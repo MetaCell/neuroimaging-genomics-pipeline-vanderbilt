@@ -26,7 +26,7 @@ Start a R session by typing `R` in the terminal and then install the following p
 ```R
 install.packages("WebGestaltR")
 ```
-
+or remove the comment to install WebGestaltR from the script. 
 now run the 2_run_webgestalt.r script in the scripts folder.
 
 3. bgenix

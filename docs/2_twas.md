@@ -9,7 +9,7 @@ We need the  files in the following structure:
 `INPUT`
 1. --hdf5_expression_file: this is list of all the hdf5 files generated from the previous step - in the GREX. You can find all the files at:
 ```
-output/input_{GROUP_NAME}/grex_{MODEL_NAME}
+output/step_1/input_{GROUP_NAME}/grex_{MODEL_NAME}
 ```
 
 2. --input_phenos_file: Provide with phenotypes. These will contain csv files. The file should be in the following structure:
@@ -29,7 +29,7 @@ data/step_2/inputs_{GROUP_NAME}/covariates.csv
 
 `OUTPUTS`
 ```bash
-output/step_2/outputs_GROUP_NAME/twas_MODEL_NAME/*
+output/step_2/outputs_GROUP_NAME/twas_MODEL_NAME/PHENS/*.txt
 ```
 
 

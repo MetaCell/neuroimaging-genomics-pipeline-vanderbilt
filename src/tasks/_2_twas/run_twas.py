@@ -43,6 +43,7 @@ class RunTwasTask(sl.Task):
 
 		# Ensure output directory exists
 		create_path_if_not_exists(outs_dir)
+		create_path_if_not_exists(f'{outs_dir}/{phens}')
 
 		log_dir = os.path.join(outs_dir, 'logs')
 		if not os.path.exists(log_dir):

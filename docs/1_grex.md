@@ -36,7 +36,7 @@ data/aux_files/models_{MODEL_NAME}/models_by_tissue/{MODEL_NAME}_Brain_{grex_mod
 ```
 
 
-b. (optional) `--text_genotypes`
+b. `--text_genotypes`
 this is generated from the previous step - `1.1. Convert to dosage` and can be found in the following structure:
 ```
 output/step_0/input_{GROUP_NAME}/dosage_{MODEL_NAME}
