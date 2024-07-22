@@ -207,6 +207,11 @@ class Config:
     TWAS_STATS_OUTPUT_PATH = f'{POLY_STATS_OUTPUT_PATH}/single_stats.hdf5'
 
 
+    # -----------------------------------------------------------------
+    # replication
+    REPLICATION_OUTPATH = 'replication'
+
+
 
 
     @staticmethod
